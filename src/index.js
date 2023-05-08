@@ -1,17 +1,41 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
 import App from './App';
-import reportWebVitals from './reportWebVitals';
+
+// STEP 2: Give the APP access to your created context, all wrapped children have access
+import GreetContext from './context/GreetContext';
+import DavidContext from './context/DavidContext';
+import JeongmiContext from './context/JeongmiContext';
+// import CompleteContextWrapper from './context/CompleteContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
 root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
+	<React.StrictMode>
+		{/* STEP 3: create Provide and value to share, all elements wrapped will have access */}
+		<GreetContext.Provider value={'HEY from Context: '}>
+			<DavidContext.Provider
+				value={{
+					name: 'david',
+					age: 'likely enternal',
+					hobbies: 'looking at trees',
+				}}
+			>
+				<JeongmiContext.Provider value={'Jeongmi is AWESOME'}>
+					<App />
+				</JeongmiContext.Provider>
+			</DavidContext.Provider>
+		</GreetContext.Provider>
+	</React.StrictMode>
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+
+// if mutiple Context exist could structure could create a wrapper to handle
+
+// root.render(
+// 	<React.StrictMode>
+// 		<CompleteContextWrapper>
+// 			<App />
+// 		</CompleteContextWrapper>
+// 	</React.StrictMode>
+// );
